@@ -1,0 +1,17 @@
+{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "storage_path",
+      "description": "Folder with the documents to index. The search index is kept in its .groupdocs-search-index sub-folder.",
+      "password": false
+    }
+  ],
+  "servers": {
+    "groupdocs-search": {
+      "type": "stdio",
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "-v", "${input:storage_path}:/data", "ghcr.io/groupdocs-search/search-net-mcp:26.10.0"]
+    }
+  }
+}

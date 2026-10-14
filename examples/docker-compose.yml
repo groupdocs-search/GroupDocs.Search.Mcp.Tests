@@ -1,0 +1,12 @@
+services:
+  groupdocs-search-mcp:
+    image: ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+    stdin_open: true
+    tty: false
+    environment:
+      GROUPDOCS_MCP_STORAGE_PATH: /data
+      # Read-only documents? Uncomment both lines to keep the index in its own volume.
+      # GROUPDOCS_MCP_INDEX_PATH: /index
+    volumes:
+      - ./documents:/data
+      # - ./index:/index
