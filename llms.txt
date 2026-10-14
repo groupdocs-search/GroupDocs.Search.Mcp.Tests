@@ -4,7 +4,7 @@ Integration tests and how-to guides for the GroupDocs.Search MCP server (ghcr.io
 
 ## Run
 
-- Against the image: `MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.0 dotnet test --filter "Category!=Metered"`
+- Against the image: `MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.1 dotnet test --filter "Category!=Metered"`
 - Against a local build: `MCP_SERVER_DLL=<path>/GroupDocs.Search.Mcp.dll dotnet test --filter "Category!=Metered"`
 - Metered licensing (spends real credit; needs GROUPDOCS_METERED_PUBLIC_KEY and GROUPDOCS_METERED_PRIVATE_KEY): `--filter "Category=Metered"`
 

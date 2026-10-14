@@ -27,7 +27,7 @@ Use the **Install in VS Code** button in the
     "groupdocs-search": {
       "type": "stdio",
       "command": "docker",
-      "args": ["run", "--rm", "-i", "-v", "${input:storage_path}:/data", "ghcr.io/groupdocs-search/search-net-mcp:26.10.0"]
+      "args": ["run", "--rm", "-i", "-v", "${input:storage_path}:/data", "ghcr.io/groupdocs-search/search-net-mcp:26.10.1"]
     }
   }
 }

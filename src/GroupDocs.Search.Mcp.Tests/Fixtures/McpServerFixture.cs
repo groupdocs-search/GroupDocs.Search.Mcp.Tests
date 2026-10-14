@@ -119,12 +119,24 @@ public sealed class McpServerFixture : IAsyncLifetime
     /// for whichever licensing variables this environment actually has.
     private string[] BuildDockerArguments(string image)
     {
-        var args = new List<string>
+        var args = new List<string> { "run", "--rm", "-i" };
+
+        // The image runs as a non-root user (uid 1654). On a Linux host a bind mount keeps its
+        // host owner, so a folder the runner owns is read-only to that user and every write -
+        // the index under /data/.groupdocs-search-index - fails with "Permission denied".
+        // Run as the host user, exactly as the README tells Linux users to. Docker Desktop on
+        // Windows and macOS does not enforce bind-mount ownership, so the flag is Linux-only.
+        if (OperatingSystem.IsLinux() && HostUser() is { } user)
         {
-            "run", "--rm", "-i",
+            args.Add("--user");
+            args.Add(user);
+        }
+
+        args.AddRange(new[]
+        {
             "-v", $"{StoragePath}:{ContainerStorage}",
             "-e", $"GROUPDOCS_MCP_STORAGE_PATH={ContainerStorage}",
-        };
+        });
 
         foreach (var name in MeteredVariables)
         {
@@ -146,6 +158,33 @@ public sealed class McpServerFixture : IAsyncLifetime
 
         args.Add(image);
         return args.ToArray();
+    }
+
+    /// "uid:gid" of the current process, from `id`, or null when it cannot be read.
+    private static string? HostUser()
+    {
+        static string? Id(string flag)
+        {
+            try
+            {
+                using var p = System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("id", flag)
+                {
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                });
+                var value = p!.StandardOutput.ReadToEnd().Trim();
+                p.WaitForExit();
+                return p.ExitCode == 0 && value.Length > 0 ? value : null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        var uid = Id("-u");
+        var gid = Id("-g");
+        return uid is null || gid is null ? null : $"{uid}:{gid}";
     }
 
     private Dictionary<string, string?> BuildServerEnv(bool containerPaths)

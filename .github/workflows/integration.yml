@@ -24,7 +24,7 @@ on:
       package_version:
         description: "GroupDocs.Search.Mcp version on nuget.org to test"
         required: false
-        default: "26.10.0"
+        default: "26.10.1"
       image:
         description: "Container image to test (docker job). Blank = ghcr.io/groupdocs-search/search-net-mcp:latest"
         required: false
@@ -47,7 +47,7 @@ jobs:
       MCP_PACKAGE_VERSION: >-
         ${{ github.event.inputs.package_version
             || github.event.client_payload.package_version
-            || '26.10.0' }}
+            || '26.10.1' }}
 
     steps:
       - uses: actions/checkout@v4

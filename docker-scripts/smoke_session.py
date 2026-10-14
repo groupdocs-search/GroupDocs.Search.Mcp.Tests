@@ -5,11 +5,15 @@ usage: python smoke_session.py <image> <host-folder-mounted-at-/data>
 exit 0 when 8 tools are listed and "lorem" matches at least the three Lorem ipsum samples.
 """
 import json
+import os
 import subprocess
 import sys
 
 image, host = sys.argv[1], sys.argv[2]
-p = subprocess.Popen(["docker", "run", "--rm", "-i", "-v", f"{host}:/data", image],
+# The image runs as uid 1654; on Linux a bind mount keeps its host owner, so run as the host user
+# or the index cannot be written. Docker Desktop (Windows, macOS) does not enforce ownership.
+user = ["--user", f"{os.getuid()}:{os.getgid()}"] if sys.platform.startswith("linux") else []
+p = subprocess.Popen(["docker", "run", "--rm", "-i", *user, "-v", f"{host}:/data", image],
                      stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
                      text=True, encoding="utf-8")
 

@@ -22,7 +22,7 @@ references the server's source.
 git clone https://github.com/groupdocs-search/GroupDocs.Search.Mcp.Tests.git
 cd GroupDocs.Search.Mcp.Tests
 
-MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.0 \
+MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.1 \
   dotnet test -c Release --filter "Category!=Metered"
 ```
 
@@ -48,7 +48,7 @@ They spend real credit, so they are a separate category and never part of the de
 two keys in the environment, then:
 
 ```bash
-MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.0 \
+MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.1 \
   dotnet test -c Release --filter "Category=Metered"
 ```
 

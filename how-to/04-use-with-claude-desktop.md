@@ -18,7 +18,7 @@ Open **Settings → Developer → Edit Config** and add:
   "mcpServers": {
     "groupdocs-search": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "-v", "/absolute/path/to/documents:/data", "ghcr.io/groupdocs-search/search-net-mcp:26.10.0"]
+      "args": ["run", "--rm", "-i", "-v", "/absolute/path/to/documents:/data", "ghcr.io/groupdocs-search/search-net-mcp:26.10.1"]
     }
   }
 }

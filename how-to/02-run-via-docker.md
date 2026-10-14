@@ -11,7 +11,7 @@ on Linux.
 ## 1. Pull
 
 ```bash
-docker pull ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+docker pull ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 ```
 
 `:latest` follows the newest release. Pin a version tag in shared configs and CI: Docker reuses a cached
@@ -25,12 +25,26 @@ left running on its own:
 ```bash
 docker run --rm -i \
   -v /path/to/documents:/data \
-  ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+  ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 ```
 
 - `/data` is the documents folder. Tool paths are relative to it.
 - The **index** is written to `/data/.groupdocs-search-index`, so it survives `--rm` and the next run
   finds it. The server never indexes that folder.
+
+### Linux: run as your user
+
+The image runs as a non-root user (uid 1654). On Linux a mounted folder keeps its host owner, so a folder
+you own is read-only inside the container and the index cannot be created. Add `--user`:
+
+```bash
+docker run --rm -i --user "$(id -u):$(id -g)" \
+  -v /path/to/documents:/data \
+  ghcr.io/groupdocs-search/search-net-mcp:26.10.1
+```
+
+In an MCP client's JSON config there is no shell to expand `$(id -u)`; use the numbers it prints,
+typically `"--user", "1000:1000"`. Docker Desktop on Windows and macOS does not need this.
 
 ### Read-only documents
 
@@ -40,7 +54,7 @@ Mount the documents read-only and give the index its own volume:
 docker run --rm -i \
   -v /path/to/documents:/data:ro \
   -v /path/to/index:/index -e GROUPDOCS_MCP_INDEX_PATH=/index \
-  ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+  ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 ```
 
 ## 3. Smoke test the handshake
@@ -50,7 +64,7 @@ printf '%s\n' \
   '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"smoke","version":"1"}}}' \
   '{"jsonrpc":"2.0","method":"notifications/initialized"}' \
   '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}' \
-  | docker run --rm -i -v "$PWD:/data" ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+  | docker run --rm -i -v "$PWD:/data" ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 ```
 
 Expected: two JSON-RPC responses. The first names `GroupDocs.Search.Mcp` and its version; the second
@@ -72,7 +86,7 @@ docker run --rm -i \
   -v /path/to/documents:/data \
   -v /path/to/license-folder:/license:ro \
   -e GROUPDOCS_LICENSE_PATH=/license/GroupDocs.Total.lic \
-  ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+  ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 ```
 
 Metered keys — forward the **names** only, so the values never appear on the command line:
@@ -81,7 +95,7 @@ Metered keys — forward the **names** only, so the values never appear on the c
 docker run --rm -i \
   -e GROUPDOCS_METERED_PUBLIC_KEY -e GROUPDOCS_METERED_PRIVATE_KEY \
   -v /path/to/documents:/data \
-  ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+  ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 ```
 
 Metered mode reports usage to GroupDocs servers and needs outbound connectivity. Call
@@ -99,5 +113,6 @@ volume layout in one file; the client still launches the server over stdio.
 | `Path 'x' not found in storage` with a file list | The path is relative to `/data`, not to your host | Pass `contracts`, not `/home/me/contracts` |
 | `documentsPath must be relative` | An absolute path was passed | Use a path relative to the mounted folder |
 | Index is empty after a restart | `/data` is not mounted, so the index lived inside the container | Add `-v <folder>:/data` |
+| `The index folder '/data/.groupdocs-search-index' is not writable` | Linux: the container user does not own your folder | Add `--user "$(id -u):$(id -g)"` (or the numbers in a JSON config) |
 | `Read-only file system` on indexing | Documents mounted `:ro` without an index volume | Add `-v <dir>:/index -e GROUPDOCS_MCP_INDEX_PATH=/index` |
 | Searches stop at 10 results | Evaluation mode | Configure a licence or metered keys |

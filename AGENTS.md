@@ -39,7 +39,7 @@ src/GroupDocs.Search.Mcp.Tests/
 Files/                      ← real fixtures from GroupDocs.Search-for-.NET Examples (see Files/README.md)
 .github/workflows/          ← integration.yml (docker + dnx-compile), metered.yml (weekly/dispatch)
 how-to/ examples/ docker-scripts/ changelog/
-Directory.Build.props       ← McpPackageVersion (26.10.0), TreatWarningsAsErrors
+Directory.Build.props       ← McpPackageVersion (26.10.1), TreatWarningsAsErrors
 ```
 
 ## The rules that make a stateful suite trustworthy
@@ -61,7 +61,7 @@ Directory.Build.props       ← McpPackageVersion (26.10.0), TreatWarningsAsErro
 dotnet build -c Release
 
 # Against an image (CI's channel)
-MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.0 dotnet test -c Release --filter "Category!=Metered"
+MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.1 dotnet test -c Release --filter "Category!=Metered"
 
 # Against a local server build
 MCP_SERVER_DLL=<path>/GroupDocs.Search.Mcp.dll dotnet test -c Release --filter "Category!=Metered"

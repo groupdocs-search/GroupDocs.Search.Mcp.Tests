@@ -1,6 +1,6 @@
 services:
   groupdocs-search-mcp:
-    image: ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+    image: ghcr.io/groupdocs-search/search-net-mcp:26.10.1
     stdin_open: true
     tty: false
     environment:

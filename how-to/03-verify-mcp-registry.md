@@ -13,7 +13,7 @@ curl -s "https://registry.modelcontextprotocol.io/v0/servers?search=io.github.gr
 Check, for the newest entry:
 
 - `name` is `io.github.groupdocs-search/groupdocs-search-mcp`;
-- `version` is the release you expect (for example `26.10.0`);
+- `version` is the release you expect (for example `26.10.1`);
 - `packages[0].registryType` is `oci` and `packages[0].identifier` is
   `ghcr.io/groupdocs-search/search-net-mcp:<same version>`;
 - `description` reads *"MCP server for GroupDocs.Search — index documents and run full-text search via AI agents."*
@@ -28,14 +28,14 @@ fails publication with 401/403.
 
 ```bash
 docker logout ghcr.io
-docker pull ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+docker pull ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 ```
 
 The pull must succeed without credentials. The image also carries the ownership label the registry
 checks:
 
 ```bash
-docker image inspect ghcr.io/groupdocs-search/search-net-mcp:26.10.0 \
+docker image inspect ghcr.io/groupdocs-search/search-net-mcp:26.10.1 \
   --format '{{index .Config.Labels "io.modelcontextprotocol.server.name"}}'
 # io.github.groupdocs-search/groupdocs-search-mcp
 ```

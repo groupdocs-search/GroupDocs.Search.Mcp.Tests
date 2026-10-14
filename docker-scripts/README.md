@@ -22,14 +22,14 @@ the 250 MB limit), so these scripts target the GHCR image by default, or a local
 ```bash
 cd docker-scripts
 ./01_verify-setup.sh
-./02_test-all-scenarios.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.0
-./04_run-server-with-samples.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+./02_test-all-scenarios.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.1
+./04_run-server-with-samples.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 ```
 
 Expected from `04`:
 
 ```text
-server: {'name': 'GroupDocs.Search.Mcp', 'version': '26.10.0'}
+server: {'name': 'GroupDocs.Search.Mcp', 'version': '26.10.1'}
 tools (8): add_to_index, create_index, get_index_info, get_license_status, get_text_fragments, remove_from_index, search, update_index
 add_to_index: Indexed the whole storage folder into index 'default': 5 document(s) added, 5 in the index.
 search 'lorem': 3 document(s): Lorem ipsum.docx, Lorem ipsum.pdf, Lorem ipsum.txt

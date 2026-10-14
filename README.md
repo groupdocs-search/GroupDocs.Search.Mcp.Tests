@@ -42,7 +42,7 @@ channel, Docker. Pick the server with an environment variable:
 
 ```bash
 # The published (or a locally built) image - the channel CI uses
-MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.0 dotnet test --filter "Category!=Metered"
+MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.1 dotnet test --filter "Category!=Metered"
 
 # A local build of the server, before anything is published
 MCP_SERVER_DLL=/path/to/GroupDocs.Search.Mcp/src/GroupDocs.Search.Mcp/bin/Release/net10.0/publish/GroupDocs.Search.Mcp.dll \

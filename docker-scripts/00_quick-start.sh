@@ -8,7 +8,7 @@
 ./02_test-all-scenarios.sh
 
 # 2. Pin a release
-./02_test-all-scenarios.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+./02_test-all-scenarios.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 
 # 3. A locally built image (in the main repo: docker build -f docker/Dockerfile -t search-net-mcp:dev .)
 ./02_test-all-scenarios.sh --image search-net-mcp:dev
@@ -25,4 +25,4 @@
 ./02_test-all-scenarios.sh --metered
 
 # 7. Hand smoke test of an image: handshake, tool list, index the samples, search "lorem"
-./04_run-server-with-samples.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+./04_run-server-with-samples.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.1

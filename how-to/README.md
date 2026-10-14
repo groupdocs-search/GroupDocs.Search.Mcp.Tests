@@ -15,7 +15,7 @@ Step-by-step guides for running the GroupDocs.Search MCP server
 ## Facts every guide relies on
 
 - **Docker-first.** The packed .NET tool is ~281 MiB, over NuGet.org's 250 MB limit, so the server
-  ships as a multi-arch image only. Guides use `:26.10.0`; substitute a newer tag or `:latest`.
+  ships as a multi-arch image only. Guides use `:26.10.1`; substitute a newer tag or `:latest`.
 - **Tools on the wire:** `create_index`, `add_to_index`, `update_index`, `remove_from_index`,
   `search`, `get_text_fragments`, `get_index_info`, `get_license_status`.
 - **Stateful.** An index persists between calls. By default it lives in

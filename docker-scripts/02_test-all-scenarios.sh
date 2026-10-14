@@ -23,7 +23,7 @@
 #
 # Examples:
 #   ./02_test-all-scenarios.sh
-#   ./02_test-all-scenarios.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.0
+#   ./02_test-all-scenarios.sh --image ghcr.io/groupdocs-search/search-net-mcp:26.10.1
 #   ./02_test-all-scenarios.sh --image search-net-mcp:dev --filter IndexLifecycle
 #   ./02_test-all-scenarios.sh --dll <path>/GroupDocs.Search.Mcp.dll
 ################################################################################
