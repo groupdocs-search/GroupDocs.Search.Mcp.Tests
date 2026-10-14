@@ -1,0 +1,28 @@
+# GroupDocs.Search.Mcp.Tests
+
+Integration tests and how-to guides for the GroupDocs.Search MCP server (ghcr.io/groupdocs-search/search-net-mcp), which indexes local documents and runs full-text search for AI agents. The suite launches the published container image (or a local build), connects as an MCP stdio client, and drives every tool: create_index, add_to_index, update_index, remove_from_index, search, get_text_fragments, get_index_info, get_license_status.
+
+## Run
+
+- Against the image: `MCP_SERVER_IMAGE=ghcr.io/groupdocs-search/search-net-mcp:26.10.0 dotnet test --filter "Category!=Metered"`
+- Against a local build: `MCP_SERVER_DLL=<path>/GroupDocs.Search.Mcp.dll dotnet test --filter "Category!=Metered"`
+- Metered licensing (spends real credit; needs GROUPDOCS_METERED_PUBLIC_KEY and GROUPDOCS_METERED_PRIVATE_KEY): `--filter "Category=Metered"`
+
+## What is covered
+
+- Tool discovery: exactly 8 tools, descriptions, schemas, phrase-quoting guidance in search.
+- Search: single word, OR, AND, quoted phrase, unquoted-phrase hint, empty result, DOCX/PDF/TXT samples, evaluation note.
+- Index lifecycle: add, info, update after edit and delete, remove file and folder, create and recreate, text fragments, index folder never indexed.
+- Errors: isError true plus the promised text for unknown index, missing path, path escape, absolute path, path as index name, file-inside-folder removal, empty and missing query.
+- Metered: mode metered, no evaluation note, consumption never decreases, keys never echoed.
+
+## Distribution note
+
+GroupDocs.Search.Mcp is Docker-first: the packed .NET tool (~281 MiB) exceeds NuGet.org's 250 MB limit, so there is no dnx channel. CI's docker job runs the suite; the 3-OS dnx job only compiles.
+
+## Key links
+
+- Server repository: https://github.com/groupdocs-search/GroupDocs.Search.Mcp
+- Tests repository: https://github.com/groupdocs-search/GroupDocs.Search.Mcp.Tests
+- Image: ghcr.io/groupdocs-search/search-net-mcp
+- License: MIT
