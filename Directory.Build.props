@@ -1,0 +1,20 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package under test">
+    <!-- Version of GroupDocs.Search.Mcp under test. Override: dotnet test -p:McpPackageVersion=26.10.0
+
+         Docker-first: GroupDocs.Search.Mcp is not published to NuGet (packed tool ~281 MiB,
+         over the 250 MB limit), so the dnx channel is SKIPPED in CI and the suite runs against
+         the GHCR image (or a local build) - see McpServerFixture for the launch channels.
+         Revert with the workflow skip if the package returns to NuGet. -->
+    <McpPackageVersion Condition="'$(McpPackageVersion)' == ''">26.10.0</McpPackageVersion>
+  </PropertyGroup>
+</Project>
